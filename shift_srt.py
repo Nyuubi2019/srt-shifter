@@ -29,7 +29,8 @@ delta = timedelta(seconds=shift)
 
 time_re = re.compile(r'(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})')
 
-with open(infile, 'r', encoding='utf-8', errors='replace') as f:
+# --- Mudança na parte de leitura para 'cp1252' (ANSI) ---
+with open(infile, 'r', encoding='cp1252', errors='replace') as f:
     text = f.read()
 
 def repl(m):
@@ -39,7 +40,8 @@ def repl(m):
 
 new_text = time_re.sub(repl, text)
 
-with open(outfile, 'w', encoding='utf-8') as f:
+# --- Mudança na parte de escrita para 'cp1252' (ANSI) ---
+with open(outfile, 'w', encoding='cp1252') as f:
     f.write(new_text)
 
 print(f"Arquivo salvo: {outfile}")
